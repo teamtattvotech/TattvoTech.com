@@ -1,0 +1,133 @@
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #0a192f;
+    color: #e0e7ff;
+}
+.hero-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+.card {
+    backdrop-filter: blur(10px);
+    background-color: rgba(30, 41, 59, 0.4);
+    border: 1px solid rgba(71, 85, 105, 0.6);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+.text-gradient {
+    background-image: linear-gradient(to right, #6b21a8, #c084fc);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.scroll-to-top {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    background-color: #6b21a8;
+    color: white;
+    padding: 0.75rem;
+    border-radius: 50%;
+    cursor: pointer;
+    display: none;
+    z-index: 1000;
+    transition: opacity 0.3s ease;
+}
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in {
+    animation: fadeIn 0.8s ease-out forwards;
+}
+#side-nav {
+    position: fixed;
+    left: 2rem;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    z-index: 100;
+}
+.nav-dot {
+    width: 10px;
+    height: 10px;
+    background-color: #4b5563;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+}
+.nav-dot.active {
+    background-color: #c084fc;
+    width: 12px;
+    height: 12px;
+    box-shadow: 0 0 10px #c084fc;
+}
+.nav-dot span {
+    position: absolute;
+    left: 1.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    color: #e0e7ff;
+    font-size: 0.875rem;
+}
+.nav-dot.active span, .nav-dot:hover span {
+    opacity: 1;
+}
+.team-image {
+    transition: transform 0.3s ease;
+}
+.team-image:hover {
+    transform: scale(1.05);
+}
+/* Swiper mobile fix */
+/* Swiper container fix */
+.swiper {
+  width: 100%;
+  max-width: 900px;   /* optional */
+  height: 400px;
+  margin: auto;
+}
+
+.swiper-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #000;    /* fallback */
+}
+
+.swiper-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 12px;
+}
+
+
+/* Ensure swiper content appears above 3D model */
+
+/* Target only hero's canvas */
+#hero-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+
+
