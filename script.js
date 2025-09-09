@@ -134,6 +134,17 @@ document.addEventListener("DOMContentLoaded", function () {
       nextEl: ".swiper-button-next",
       prevEl: ".swiper-button-prev",
     },
+    breakpoints: {
+    320: { // very small screens
+      slidesPerView: 1,
+    },
+    768: { // tablets
+      slidesPerView: 1,
+    },
+    1024: { // desktop
+      slidesPerView: 1,
+    }
+  }
   });
 });
 
@@ -141,10 +152,20 @@ document.addEventListener("DOMContentLoaded", function () {
 document.addEventListener("DOMContentLoaded", function () {
   const menuBtn = document.getElementById("mobile-menu-button");
   const mobileMenu = document.getElementById("mobile-menu");
+  const navLinks = mobileMenu.querySelectorAll("a"); // all links inside menu
 
   if (menuBtn && mobileMenu) {
+    // Toggle on button click
     menuBtn.addEventListener("click", () => {
       mobileMenu.classList.toggle("hidden");
     });
+
+    // Auto-close menu on link click
+    navLinks.forEach(link => {
+      link.addEventListener("click", () => {
+        mobileMenu.classList.add("hidden");
+      });
+    });
   }
 });
+
