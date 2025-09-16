@@ -1,11 +1,8 @@
-window.onload = function() {
-    // Three.js 3D animation
+window.onload = function () {
     const canvas = document.getElementById('hero-canvas');
-    const sizes = {
-        width: window.innerWidth,
-        height: window.innerHeight
-    };
+    if (!canvas) return;
 
+    const sizes = { width: window.innerWidth, height: window.innerHeight };
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 1000);
     camera.position.z = 5;
@@ -14,42 +11,33 @@ window.onload = function() {
     renderer.setSize(sizes.width, sizes.height);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-    // Create a simple, abstract shape with wireframe material
+    // Torus Knot
     const geometry = new THREE.TorusKnotGeometry(1.5, 0.5, 100, 16);
     const material = new THREE.MeshBasicMaterial({ color: 0x8A2BE2, wireframe: true });
     const mesh = new THREE.Mesh(geometry, material);
     scene.add(mesh);
 
-    // Add some background particles for a more dynamic look
+    // Particles
     const particlesGeometry = new THREE.BufferGeometry();
     const particlesCount = 5000;
     const posArray = new Float32Array(particlesCount * 3);
-    for(let i = 0; i < particlesCount * 3; i++) {
+    for (let i = 0; i < particlesCount * 3; i++) {
         posArray[i] = (Math.random() - 0.5) * 25;
     }
     particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
-    const particlesMaterial = new THREE.PointsMaterial({
-        size: 0.01,
-        color: 0x6A0DAD
-    });
+    const particlesMaterial = new THREE.PointsMaterial({ size: 0.01, color: 0x6A0DAD });
     const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
     scene.add(particlesMesh);
 
-    // Animation loop
     const animate = () => {
-        window.requestAnimationFrame(animate);
-        // Rotate the main shape
+        requestAnimationFrame(animate);
         mesh.rotation.y += 0.005;
         mesh.rotation.x += 0.001;
         mesh.rotation.z += 0.002;
-        
-        // Animate particles
         particlesMesh.rotation.y += 0.0005;
-
         renderer.render(scene, camera);
     };
 
-    // Handle window resize
     window.addEventListener('resize', () => {
         sizes.width = window.innerWidth;
         sizes.height = window.innerHeight;
@@ -58,10 +46,10 @@ window.onload = function() {
         renderer.setSize(sizes.width, sizes.height);
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     });
-    
+
     animate();
 
-    // Smooth scrolling for navigation links
+    // ---------------- Smooth Scrolling ----------------
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
@@ -71,7 +59,7 @@ window.onload = function() {
         });
     });
 
-    // Scroll to top button functionality
+    // ---------------- Scroll To Top Button ----------------
     const scrollToTopBtn = document.getElementById('scrollToTopBtn');
     window.addEventListener('scroll', () => {
         if (window.scrollY > 300) {
@@ -80,27 +68,18 @@ window.onload = function() {
             scrollToTopBtn.style.display = 'none';
         }
     });
-
     scrollToTopBtn.addEventListener('click', () => {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 
-    // Side navigation functionality
-    const sideNav = document.getElementById('side-nav');
+    // ---------------- Side Navigation ----------------
     const sections = document.querySelectorAll('section');
     const navDots = document.querySelectorAll('.nav-dot');
 
     const activateDot = (id) => {
-        navDots.forEach(dot => {
-            dot.classList.remove('active');
-        });
+        navDots.forEach(dot => dot.classList.remove('active'));
         const activeDot = document.querySelector(`.nav-dot[data-section="${id}"]`);
-        if (activeDot) {
-            activeDot.classList.add('active');
-        }
+        if (activeDot) activeDot.classList.add('active');
     };
 
     const handleScroll = () => {
@@ -119,53 +98,40 @@ window.onload = function() {
 
     window.addEventListener('scroll', handleScroll);
 };
+
+// ---------------- Swiper Slider ----------------
 document.addEventListener("DOMContentLoaded", function () {
-  new Swiper(".mySwiper", {
-    loop: true,
-    autoplay: {
-      delay: 3000,
-      disableOnInteraction: false,
-    },
-    pagination: {
-      el: ".swiper-pagination",
-      clickable: true,
-    },
-    navigation: {
-      nextEl: ".swiper-button-next",
-      prevEl: ".swiper-button-prev",
-    },
-    breakpoints: {
-    320: { // very small screens
-      slidesPerView: 1,
-    },
-    768: { // tablets
-      slidesPerView: 1,
-    },
-    1024: { // desktop
-      slidesPerView: 1,
+    new Swiper(".mySwiper", {
+        loop: true,
+        autoplay: {
+            delay: 3000,
+            disableOnInteraction: false,
+        },
+        pagination: { el: ".swiper-pagination", clickable: true },
+        navigation: { nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" },
+        breakpoints: {
+            320: { slidesPerView: 1 },
+            768: { slidesPerView: 1 },
+            1024: { slidesPerView: 1 }
+        }
+    });
+});
+
+// ---------------- Mobile Menu Toggle ----------------
+document.addEventListener("DOMContentLoaded", function () {
+    const menuBtn = document.getElementById("mobile-menu-button");
+    const mobileMenu = document.getElementById("mobile-menu");
+    const navLinks = mobileMenu ? mobileMenu.querySelectorAll("a") : [];
+
+    if (menuBtn && mobileMenu) {
+        menuBtn.addEventListener("click", () => {
+            mobileMenu.classList.toggle("hidden");
+        });
+
+        navLinks.forEach(link => {
+            link.addEventListener("click", () => {
+                mobileMenu.classList.add("hidden");
+            });
+        });
     }
-  }
-  });
 });
-
-// Mobile menu toggle
-document.addEventListener("DOMContentLoaded", function () {
-  const menuBtn = document.getElementById("mobile-menu-button");
-  const mobileMenu = document.getElementById("mobile-menu");
-  const navLinks = mobileMenu.querySelectorAll("a"); // all links inside menu
-
-  if (menuBtn && mobileMenu) {
-    // Toggle on button click
-    menuBtn.addEventListener("click", () => {
-      mobileMenu.classList.toggle("hidden");
-    });
-
-    // Auto-close menu on link click
-    navLinks.forEach(link => {
-      link.addEventListener("click", () => {
-        mobileMenu.classList.add("hidden");
-      });
-    });
-  }
-});
-
