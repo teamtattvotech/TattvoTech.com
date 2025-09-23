@@ -10,10 +10,10 @@ window.onload = function () {
     const isMobile = window.innerWidth < 768;
 
     // Adjust 3D parameters for mobile
-    const torusKnotRadius = isMobile ? 0.75 : 1.5;
-    const torusKnotTube = isMobile ? 0.25 : 0.5;
-    const particlesCount = isMobile ? 1000 : 5000;
-    const cameraZ = isMobile ? 3 : 5;
+    const torusKnotRadius = isMobile ? 0.5 : 1.5;
+    const torusKnotTube = isMobile ? 0.2 : 0.5;
+    const particlesCount = isMobile ? 500 : 5000;
+    const cameraZ = isMobile ? 2.5 : 5;
 
     camera.position.z = cameraZ;
 
