@@ -4,7 +4,7 @@ body {
   color: #e0e7ff;
   margin: 0;
   padding: 0;
-  -webkit-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%; /* prevent font scaling on iOS */
 }
 
 /* Hero canvas */
@@ -14,7 +14,7 @@ body {
   top: 0;
   left: 0;
   width: 100%;
-  height: 100dvh;
+  height: 100dvh;   /* ✅ full screen height on real devices */
   z-index: 0;
 }
 
@@ -130,7 +130,85 @@ body {
 .swiper-slide img {
   width: 100%;
   height: auto;
-  max-height: 70dvh;
+  max-height: 70dvh;   /* ✅ dynamic viewport height */
   object-fit: contain;
   border-radius: 12px;
+}
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
+  #side-nav {
+    display: none;       /* ✅ hide side nav on tablets/mobiles */
+  }
+  .scroll-to-top {
+    bottom: 1rem;
+    right: 1rem;
+    padding: 0.5rem;
+    font-size: 0.9rem;
+  }
+  #mobile-menu {
+    margin-top: 1rem;
+  }
+  .swiper-button-prev, .swiper-button-next, .swiper-pagination {
+    display: none;
+  }
+    
+  /* --- KEY CHANGES FOR MOBILE SWIPER --- */
+  .swiper {
+    width: 100% !important;
+    max-width: none !important;
+  }
+
+  .swiper-wrapper {
+    display: block !important;
+    width: 100% !important;
+    transform: none !important;
+    height: auto !important;
+  }
+  
+  .swiper-slide {
+    width: 100% !important;
+    height: auto !important;
+    margin-right: 0 !important;
+    flex-shrink: 0 !important;
+    opacity: 1 !important;
+  }
+  
+  .swiper-slide img {
+    max-height: 350px;
+    width: auto;
+    object-fit: contain;
+  }
+  .swiper-slide:not(:first-child) {
+        display: none !important;
+    }
+
+    /* Hide the swiper navigation and pagination dots */
+    .swiper-button-prev,
+    .swiper-button-next,
+    .swiper-pagination {
+        display: none;
+    }
+}
+
+@media (max-width: 480px) {
+    /* Adjustments for a larger feel on mobile */
+    #hero {
+        padding-top: 5rem;
+        padding-bottom: 5rem;
+    }
+    #hero h1 {
+        font-size: 2.5rem;
+    }
+    #hero p {
+        font-size: 1.125rem;
+    }
+    #hero a {
+        padding: 0.75rem 2rem;
+        font-size: 1rem;
+    }
+    .swiper-slide img {
+        /* Even larger max-height for very small screens */
+        max-height: 300px;
+    }
 }
