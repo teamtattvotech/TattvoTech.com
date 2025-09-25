@@ -118,8 +118,6 @@ window.onload = function () {
 // ---------------- Swiper Slider ----------------
 document.addEventListener("DOMContentLoaded", function () {
   new Swiper(".mySwiper", {
-    // These are the default parameters for larger screens
-    // They will be overridden by the breakpoints below for smaller screens
     slidesPerView: 1,
     loop: true,
     autoplay: {
@@ -135,39 +133,19 @@ document.addEventListener("DOMContentLoaded", function () {
       prevEl: ".swiper-button-prev",
     },
 
-    // This is the key part: Use breakpoints to apply different settings
+    // Use breakpoints to adjust settings
     breakpoints: {
-      // Disable Swiper for screens up to 768px wide
+      // For screens up to 767px wide
       0: {
         slidesPerView: 1,
-        allowTouchMove: false,
-        autoplay: false,
-        loop: false,
-        // Hide navigation and pagination on mobile
         navigation: {
-          enabled: false,
-        },
-        pagination: {
           enabled: false,
         },
       },
-      // Re-enable Swiper for screens larger than 768px
+      // For screens 768px and up
       768: {
         slidesPerView: 1,
-        allowTouchMove: true,
-        autoplay: {
-          delay: 3000,
-          disableOnInteraction: false,
-        },
-        loop: true,
         navigation: {
-          nextEl: ".swiper-button-next",
-          prevEl: ".swiper-button-prev",
-          enabled: true,
-        },
-        pagination: {
-          el: ".swiper-pagination",
-          clickable: true,
           enabled: true,
         },
       },
@@ -180,15 +158,27 @@ document.addEventListener("DOMContentLoaded", function () {
     const menuBtn = document.getElementById("mobile-menu-button");
     const mobileMenu = document.getElementById("mobile-menu");
     const navLinks = mobileMenu ? mobileMenu.querySelectorAll("a") : [];
+    
+    // Select the icons
+    const barsIcon = document.getElementById("bars-icon");
+    const timesIcon = document.getElementById("times-icon");
 
     if (menuBtn && mobileMenu) {
+        // 1. Toggle the menu AND the icons when the button is clicked
         menuBtn.addEventListener("click", () => {
             mobileMenu.classList.toggle("hidden");
+            // Toggle the visibility of the icons
+            barsIcon.classList.toggle("hidden");
+            timesIcon.classList.toggle("hidden");
         });
 
+        // 2. When a menu link is clicked, hide the menu and show the bars icon again
         navLinks.forEach(link => {
             link.addEventListener("click", () => {
                 mobileMenu.classList.add("hidden");
+                // Reset the icon to the bars when the menu closes
+                barsIcon.classList.remove("hidden");
+                timesIcon.classList.add("hidden");
             });
         });
     }
