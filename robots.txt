@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /wp-admin/admin-ajax.php
+
+Sitemap: https://tattvotech.com/sitemap.xml
